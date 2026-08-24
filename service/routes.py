@@ -86,7 +86,7 @@ def list_accounts():
 def get_accounts(account_id):
     """Returns an Account by ID"""
     app.logger.info("Request to read Account with id: %s", account_id)
- 
+
     account = Account.find(account_id)
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id '{account_id}' was not found.")
