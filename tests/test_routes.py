@@ -155,3 +155,37 @@ class TestAccountService(TestCase):
         response = self.client.get(BASE_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.get_json(), [])
+
+    # Test Update an Account
+    def test_update_account(self):
+        """It should update an existing Account"""
+        account = self._create_accounts(1)[0]
+        updated_account = account.serialize()
+        updated_account["name"] = "Updated Account"
+        response = self.client.put(
+            f"{BASE_URL}/{account.id}",
+            json=updated_account,
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.get_json()["name"], "Updated Account")
+
+        response = self.client.get(f"{BASE_URL}/{account.id}")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.get_json()["name"], "Updated Account")
+
+    # Test delete an account
+    def test_delete_account(self):
+        """It should delete an existing Account"""
+        account = self._create_accounts(1)[0]
+        response = self.client.delete(f"{BASE_URL}/{account.id}")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        response = self.client.get(f"{BASE_URL}/{account.id}")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    # test for error handlers
+    def test_method_not_allowed(self):
+        """It should not allow an illegal method call"""
+        resp = self.client.delete(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
