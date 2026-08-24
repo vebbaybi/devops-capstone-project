@@ -147,7 +147,7 @@ class TestAccountService(TestCase):
         response = self.client.get(BASE_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(len(data), len(accounts))
+        self.assertEqual(len(data), 5)
 
     # test list all empty accounts
     def test_list_accounts_empty(self):
