@@ -149,7 +149,7 @@ class TestAccountService(TestCase):
         data = response.get_json()
         self.assertEqual(len(data), len(accounts))
 
-    # test to list accounts empty
+    # test list all empty accounts
     def test_list_accounts_empty(self):
         """It should return n empty list when there are no Accounts"""
         response = self.client.get(BASE_URL)
