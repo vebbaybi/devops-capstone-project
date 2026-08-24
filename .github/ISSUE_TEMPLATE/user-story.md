@@ -1,3 +1,12 @@
+---
+name: user-story
+about: Describe this issue template's purpose here.
+title: User story creation
+labels: ''
+assignees: vebbaybi
+
+---
+
 **As a** [role]
 **I need** [funtion]
 **So that** [benefit]
